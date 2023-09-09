@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { LearnSomethingNode } from './model/learn-something'
 
 const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT || 'prod'
 
@@ -9,7 +10,17 @@ const host =
 
 const withCredentials = ENVIRONMENT === 'prod' ? true : false
 
-const URLS = {}
+const URLS = {
+  fetchLearnSomethings: '/learn-something/fetch-all',
+}
+
+export async function fetchLearnSomethings(
+  email: string
+): Promise<LearnSomethingNode[]> {
+  const res = await makePost(URLS.fetchLearnSomethings, { email })
+  console.log(JSON.stringify(res.data.learnSomethingTree))
+  return (res.data.learnSomethingTree as LearnSomethingNode[]) || []
+}
 
 async function deleteRequest(url: string, body: any) {
   console.log(`Making request: ${JSON.stringify(body)}`)

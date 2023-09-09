@@ -8,6 +8,9 @@ import {
 import SignIn from './SignIn'
 import { container } from './lib/container'
 import Header from './components/Header'
+import { LearnSomething } from './learn-something/LearnSomething'
+
+import './App.css'
 
 export const UserContext = createContext({
   userId: '',
@@ -81,24 +84,29 @@ export default function App() {
   return (
     <UserContext.Provider value={userInfo}>
       <Router>
-        <Header />
-        <Routes>
-          {isAuthenticated ? (
-            <Route path="/" element={<div>Hi</div>} />
-          ) : (
-            <>
+        <div className="App">
+          <Header />
+          <Routes>
+            {isAuthenticated ? (
               <Route
-                path="/*"
-                element={
-                  <SignIn
-                    handleGlobalUserInfoChange={handleGlobalUserInfoChange}
-                    triggerRefresh={() => fetchUserDescriptors()}
-                  />
-                }
+                path="/"
+                element={<LearnSomething email={userInfo.email} />}
               />
-            </>
-          )}
-        </Routes>
+            ) : (
+              <>
+                <Route
+                  path="/*"
+                  element={
+                    <SignIn
+                      handleGlobalUserInfoChange={handleGlobalUserInfoChange}
+                      triggerRefresh={() => fetchUserDescriptors()}
+                    />
+                  }
+                />
+              </>
+            )}
+          </Routes>
+        </div>
       </Router>
     </UserContext.Provider>
   )
