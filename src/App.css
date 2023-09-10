@@ -1,4 +1,7 @@
 .App {
   background-color: white;
-  height: 100vh;
+  min-height: 100vh;
+  color: #454545;
+  font-family: sans-serif;
+  overflow-y: scroll;
 }

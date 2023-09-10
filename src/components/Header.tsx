@@ -12,7 +12,7 @@ const Header = () => {
   }
   return (
     <header className="app-header">
-      <MainTile title={name} page="/" isHeader={true} />
+      <MainTile title="Stable" page="/" isHeader={true} />
       <LoaderButton
         buttonText="Log Out"
         isLoading={false}

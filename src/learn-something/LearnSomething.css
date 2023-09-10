@@ -1,0 +1,10 @@
+.learn-something-landing {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+.learn-something-title {
+  width: 100vw;
+  text-align: left;
+}
