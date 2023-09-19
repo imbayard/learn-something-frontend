@@ -1,10 +1,5 @@
-.learn-something-landing {
+.learn-something-page {
   display: flex;
-  flex-direction: column;
-  padding: 2%;
-}
-
-.learn-something-title {
-  width: 100vw;
-  text-align: left;
+  justify-content: left;
+  align-items: left;
 }

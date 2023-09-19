@@ -4,8 +4,9 @@
   justify-content: space-evenly;
   align-items: flex-start;
   color: #454545;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px groove rgba(0, 0, 0, 0.8);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 15vh;
 }
 
 .app-header h1 {

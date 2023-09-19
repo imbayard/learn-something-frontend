@@ -1,25 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { Input, Tree } from 'antd'
 import type { DataNode } from 'antd/es/tree'
-import { LearnSomethingNode } from '../model/learn-something'
 import { learnSomethingTree } from '../samples/learn-something'
+import { convertToDataNode } from '../lib/learn-something-util'
+import './KnowledgeNodeTree.css'
 
 const { Search } = Input
-
-export const convertToDataNode = (
-  learnSomething: LearnSomethingNode[]
-): DataNode[] => {
-  return learnSomething.map((ls) => {
-    const children =
-      ls.nodes && ls.nodes.length > 0 ? convertToDataNode(ls.nodes) : undefined
-    return {
-      key: ls.id,
-      title: ls.topic,
-      children,
-      parentId: ls.parentId,
-    }
-  })
-}
 const defaultData: DataNode[] = convertToDataNode(learnSomethingTree)
 
 const dataList: { key: React.Key; title: string; parentId?: React.Key }[] = []
@@ -106,7 +92,7 @@ export const KnowledgeNodeTree: React.FC = () => {
   }, [searchValue])
 
   return (
-    <div>
+    <div className="knowledge-node-tree">
       <Search
         style={{ marginBottom: 8 }}
         placeholder="Search"
