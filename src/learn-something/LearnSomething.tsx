@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { fetchLearnSomethings } from '../api'
-import { learnSomethingTree } from '../samples/learn-something'
-import { container } from '../lib/container'
 import { LearnSomethingNode } from '../model/learn-something'
-import { LSNode } from './LSNode'
+import React, { useState, useEffect } from 'react'
+import { fetchLearnSomethings } from '../api'
+import { container } from '../lib/container'
+import { learnSomethingTree } from '../samples/learn-something'
+import { KnowledgeNodeTree } from '../components/KnowledgeNodeTree'
 
-import './LearnSomething.css'
+type LearnSomethingProps = {
+  email: string
+}
 
-export function LearnSomething({ email }: { email: string }) {
+export const LearnSomething: React.FC<LearnSomethingProps> = ({ email }) => {
+  const [learnSomethingRoots, setLearnSomethingRoots] = useState(
+    [] as LearnSomethingNode[]
+  )
   useEffect(() => {
     async function loadPage() {
-      const ls = container.noapi
+      const learnSomethingRoots = container.noapi
         ? learnSomethingTree
         : await fetchLearnSomethings(email)
-      setLearnSomething(ls)
+      setLearnSomethingRoots(learnSomethingRoots)
     }
     loadPage()
   }, [])
-  const [learnSomething, setLearnSomething] = useState(
-    [] as LearnSomethingNode[]
-  )
-  return (
-    <div className="learn-something-landing">
-      <h1 className="learn-something-title">Learn Something!</h1>
-      <div className="learn-something-roots">
-        {learnSomething.map((ls) => (
-          <LSNode node={ls} />
-        ))}
-      </div>
-    </div>
-  )
+  return <KnowledgeNodeTree />
 }
