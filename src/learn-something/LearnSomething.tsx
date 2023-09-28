@@ -5,8 +5,6 @@ import { container } from '../lib/container'
 import { learnSomethingTree } from '../samples/learn-something'
 import { KnowledgeNodeTree } from '../components/KnowledgeNodeTree'
 
-import './LearnSomething.css'
-
 type LearnSomethingProps = {
   email: string
 }
@@ -24,9 +22,5 @@ export const LearnSomething: React.FC<LearnSomethingProps> = ({ email }) => {
     }
     loadPage()
   }, [])
-  return (
-    <div className="learn-something-page">
-      <KnowledgeNodeTree />
-    </div>
-  )
+  return <KnowledgeNodeTree />
 }

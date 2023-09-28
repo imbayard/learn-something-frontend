@@ -11,6 +11,7 @@ import Header from './components/Header'
 import { LearnSomething } from './learn-something/LearnSomething'
 
 import './App.css'
+import { LearnSomethingNodeComponent } from './components/LearnSomethingNode'
 
 export const UserContext = createContext({
   userId: '',
@@ -86,26 +87,30 @@ export default function App() {
       <Router>
         <div className="App">
           <Header />
-          <Routes>
+          <div className="app-body">
             {isAuthenticated ? (
-              <Route
-                path="/"
-                element={<LearnSomething email={userInfo.email} />}
-              />
+              <LearnSomething email={userInfo.email} />
             ) : (
-              <>
-                <Route
-                  path="/*"
-                  element={
-                    <SignIn
-                      handleGlobalUserInfoChange={handleGlobalUserInfoChange}
-                      triggerRefresh={() => fetchUserDescriptors()}
-                    />
-                  }
-                />
-              </>
+              <></>
             )}
-          </Routes>
+            <Routes>
+              {isAuthenticated ? (
+                <Route path="/:id" element={<LearnSomethingNodeComponent />} />
+              ) : (
+                <>
+                  <Route
+                    path="/*"
+                    element={
+                      <SignIn
+                        handleGlobalUserInfoChange={handleGlobalUserInfoChange}
+                        triggerRefresh={() => fetchUserDescriptors()}
+                      />
+                    }
+                  />
+                </>
+              )}
+            </Routes>
+          </div>
         </div>
       </Router>
     </UserContext.Provider>

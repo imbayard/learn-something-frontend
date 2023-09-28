@@ -4,19 +4,40 @@ import type { DataNode } from 'antd/es/tree'
 import { learnSomethingTree } from '../samples/learn-something'
 import { convertToDataNode } from '../lib/learn-something-util'
 import './KnowledgeNodeTree.css'
+import { TreeNode } from '../model'
+import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
-const defaultData: DataNode[] = convertToDataNode(learnSomethingTree)
+const defaultData: TreeNode[] = convertToDataNode(learnSomethingTree)
 
-const dataList: { key: React.Key; title: string; parentId?: React.Key }[] = []
-const generateList = (data: DataNode[], parentId?: React.Key) => {
+const dataList: TreeNode[] = []
+const generateList = (
+  data: TreeNode[],
+  parentId?: React.Key,
+  fullPath?: string
+) => {
   for (let i = 0; i < data.length; i++) {
     const node = data[i]
     const { key } = node
-    dataList.push({ key, title: (node.title as string) || '', parentId })
+    const path = generateNodePath(fullPath || key.toString(), node)
+    dataList.push({
+      key,
+      title: (node.title as string) || '',
+      parentId,
+      fullPath: path,
+      children: node.children,
+    })
     if (node.children) {
-      generateList(node.children, key)
+      generateList(node.children, key, path)
     }
+  }
+}
+
+const generateNodePath = (fullpath: string, data: TreeNode) => {
+  if (data.parentId) {
+    return `${fullpath}+${data.key}`.toString()
+  } else {
+    return data.key.toString()
   }
 }
 
@@ -28,9 +49,18 @@ const getParentKey = (key: React.Key): React.Key | undefined => {
 }
 
 export const KnowledgeNodeTree: React.FC = () => {
+  const navigate = useNavigate()
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
   const [searchValue, setSearchValue] = useState('')
   const [autoExpandParent, setAutoExpandParent] = useState(true)
+
+  const onSelect = (selectedKeys: React.Key[], info: any) => {
+    const key = selectedKeys[0]
+    const selectedNode = dataList.find((item) => item.key === key)
+    if (selectedNode && selectedNode.fullPath) {
+      navigate(`/${selectedNode.fullPath}`)
+    }
+  }
 
   const onExpand = (newExpandedKeys: React.Key[]) => {
     setExpandedKeys(newExpandedKeys)
@@ -103,6 +133,7 @@ export const KnowledgeNodeTree: React.FC = () => {
         expandedKeys={expandedKeys}
         autoExpandParent={autoExpandParent}
         treeData={treeData}
+        onSelect={onSelect}
       />
     </div>
   )

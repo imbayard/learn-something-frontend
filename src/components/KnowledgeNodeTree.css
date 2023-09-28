@@ -1,8 +1,4 @@
 .knowledge-node-tree {
-  position: fixed;
-  top: 15vh;
-  left: 0;
-  width: 16.5%;
   padding: 2%;
   border-right: 1px groove rgba(0, 0, 0, 0.8);
   height: 100vh;

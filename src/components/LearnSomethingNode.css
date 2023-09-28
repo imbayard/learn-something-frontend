@@ -1,0 +1,42 @@
+.learn-something-node {
+  background-color: #fafafa; /* Light grey background */
+  border: 1px solid #e0e0e0; /* Border around the node */
+  padding: 2%; /* Padding inside the node */
+  width: 100%;
+}
+
+.learn-something-topic {
+  font-size: 1.5em; /* Larger font size for the topic */
+  font-weight: bold; /* Bold font weight for the topic */
+  margin-bottom: 8px; /* Margin between the topic and the lesson */
+}
+
+.learn-something-lesson {
+  font-size: 1.2em; /* Slightly larger font size for the lesson */
+  margin-bottom: 8px; /* Margin between the lesson and the subtopics */
+  line-height: 2em;
+  padding: 2%;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+}
+
+.learn-something-lesson-sentence {
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.learn-something-lesson-sentence:hover {
+  cursor: pointer;
+  color: black;
+  text-decoration: underline;
+  height: 2em;
+}
+.learn-something-subtopics {
+  font-size: 1em; /* Regular font size for the subtopics */
+  color: #555; /* Darker grey text color for the subtopics */
+}
+
+.study-next {
+  font-size: 1.2em;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
