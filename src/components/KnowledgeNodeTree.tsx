@@ -72,7 +72,7 @@ export const KnowledgeNodeTree: React.FC = () => {
     const newExpandedKeys: React.Key[] = []
 
     dataList.forEach((item) => {
-      if (item.title.indexOf(value) > -1) {
+      if (item.title.toLowerCase().indexOf(value.toLowerCase()) > -1) {
         // Add the key of the matched item
         newExpandedKeys.push(item.key)
 

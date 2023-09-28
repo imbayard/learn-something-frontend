@@ -1,5 +1,49 @@
 export const learnSomethingTree = [
   {
+    id: '6514e9831d2a373a58fab3f4',
+    topic: 'Personal Finance',
+    lesson:
+      'A great way for beginners to start building their knowledge of personal finance is to use test prep resources like practice tests and flashcards. This is a great way to get comfortable with the terminology and jargon used in personal finance. It will also teach you about the various areas of personal finance like saving, budgeting, investing, and retirement planning. Additionally, it can help you identify any weak areas you may have in understanding personal finance, providing insight into how you can best study and improve your knowledge.',
+    suggested_subtopics:
+      'The first thing you should learn about personal finance is budgeting. Budgeting involves tracking your income and expenses, setting financial goals, and creating a plan to reach those goals. Other important topics to learn about include saving and investing, debt management, and financial planning.',
+    nodes: [
+      {
+        id: '6514ea535fbe40a467bb2872',
+        topic: 'Retirement Planning',
+        lesson:
+          "If you are just starting to think about retirement planning, a great place to begin is by calculating your estimated retirement expenses. Start by thinking about what your goal is - such as having a comfortable lifestyle and still being able to save for other goals such as travel or hobbies. Then, estimate how much income you'll need each month and think about your retirement timeline - how long you plan to be retired and when you want to begin saving for retirement. Having an idea of these two factors can help you determine how much you should start saving now in order to meet your goals in the future.",
+        suggested_subtopics:
+          '1. Learn about different types of retirement accounts, such as 401(k)s, IRAs, and Roth IRAs, and the benefits and drawbacks of each.  2. Understand the rules and regulations governing retirement accounts and how to maximize your contributions.  3. Research different investment strategies for retirement accounts, such as target date funds, index funds, and actively managed funds.  4. Develop a plan for your retirement savings that takes into account your current income, expenses, and goals.  5. Consider how Social Security and other sources of retirement income will factor into your retirement plan.  6. Understand the different tax implications of retirement accounts and how to minimize your tax burden.  7. Research different types of annuities and how they can help you generate a steady stream of income in retirement.  8. Learn about long-term care insurance and how it can help protect your retirement savings.  9. Research different types of reverse mortgages and how they can help you access your home’s equity in retirement.  10. Understand the different options for withdrawing money from your retirement accounts and how to minimize the tax implications.',
+        nodes: [],
+        email: 'beton@bu.edu',
+        parentId: '6514e9831d2a373a58fab3f4',
+      },
+      {
+        id: '6514e9ea1d2a373a58fab3fd',
+        topic: 'Controlling Restaurant Expenses',
+        lesson:
+          "A great way for beginners to save money on restaurant expenses is to stick to a budget. You can figure out what your weekly or monthly budget should be and then make sure to stick to it. Make sure to research the menu options at your favorite restaurants to make sure you're getting the most for your money. You can also do things like look for happy hour specials, and plan meals ahead of time so you know what you'll order when you get to the restaurant.",
+        suggested_subtopics:
+          '1. Budgeting for Groceries  2. Managing Credit Card Debt  3. Saving for Retirement  4. Developing a Financial Plan  5. Understanding Insurance  6. Investing Wisely  7. Understanding Taxes  8. Creating an Emergency Fund  9. Avoiding Debt Traps  10. Setting Financial Goals',
+        nodes: [],
+        email: 'beton@bu.edu',
+        parentId: '6514e9831d2a373a58fab3f4',
+      },
+      {
+        id: '6514e9bc1d2a373a58fab3f8',
+        topic: 'Budgeting',
+        lesson:
+          'One practical example of budgeting for a beginner is to create a budget worksheet. Start by listing all of your monthly income and expenses, such as rent, utilities, groceries, entertainment, and other necessities. Divide your expenses into "fixed costs," or those expenses that stay the same each month, and "variable costs," or those that fluctuate from month to month. Once you understand the overall cost of your living expenses, you can set a budget. Create a goal to save a certain amount each month, or decide to allocate a certain amount of money to certain categories each month. With a budget in place, you will be able to better track your spending and gain control of your money.',
+        suggested_subtopics:
+          '1. Investing 2. Retirement Planning 3. Insurance 4. Debt Management 5. Credit Scores 6. Tax Planning 7. Estate Planning 8. Home Buying 9. Risk Management 10. Financial Goal Setting',
+        nodes: [],
+        email: 'beton@bu.edu',
+        parentId: '6514e9831d2a373a58fab3f4',
+      },
+    ],
+    email: 'beton@bu.edu',
+  },
+  {
     id: '64fc9d34a73cb67b98e4848d',
     topic: 'Buddhism',
     lesson:
