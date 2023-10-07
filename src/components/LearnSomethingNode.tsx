@@ -31,7 +31,7 @@ export function LearnSomethingNodeComponent() {
     setIsDeleting(true)
     // Call your async delete function here.
 
-    await deleteLearnSomething(id || '', deleteChildren)
+    await deleteLearnSomething(node?.id || '', deleteChildren)
     // You can use the deleteChildren state to determine if children should be deleted.
     setIsDeleting(false)
   }

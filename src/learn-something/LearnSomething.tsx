@@ -22,5 +22,11 @@ export const LearnSomething: React.FC<LearnSomethingProps> = ({ email }) => {
     }
     loadPage()
   }, [])
-  return <KnowledgeNodeTree />
+  return (
+    <KnowledgeNodeTree
+      email={email}
+      setLearnSomethingRoots={setLearnSomethingRoots}
+      learnSomethingRoots={learnSomethingRoots}
+    />
+  )
 }

@@ -1,5 +1,25 @@
 export const learnSomethingTree = [
   {
+    id: '6521bf6a3d2c07292b7fcd74',
+    topic: 'Salary Negotiation Tactics',
+    lesson:
+      'Learning how to negotiate salary can be an intimidating process, but it is essential for maximizing your earning potential. As a beginner, it is important to understand the basics: first research salaries for the position and industry, determine what your bottom line is and come to the negotiating table armed with facts, not feelings. Additionally, it is important to focus on what you bring to the table and why your value to the company warrants the compensation you are requesting. Lastly, be patient during the process, as getting the best outcome without burning bridges is key.',
+    suggested_subtopics:
+      'The first thing you should learn about salary negotiation tactics is the value of preparation. Before entering into any negotiation, it is important to do your research and understand the market rate for the position you are seeking, as well as the industry averages. Additionally, it is important to be aware of any non-salary benefits that may be offered, such as vacation time, health insurance, and other perks. Finally, be sure to practice your negotiation skills before the actual negotiation takes place. This will help you to stay focused and be confident in your approach.',
+    nodes: [],
+    email: 'beton@bu.edu',
+  },
+  {
+    id: '6521ba5f3d2c07292b7fcd69',
+    topic: 'Foods for clean energy and low inflamation',
+    lesson:
+      'As an expert on foods for clean energy and low inflammation, an example of an energy-boosting and low inflammation meal could include grilled wild-caught salmon, quinoa cooked with coconut oil, and attached to it, a side salad. Grilled salmon is rich in omega-3 fatty acids, which have been found to help reduce inflammation, and quinoa is an excellent source of complex carbohydrates and fiber, which help to maintain stable energy levels throughout the day. Eating foods like this regularly can help maintain a healthy, balanced diet and promote clean energy and reduce inflammation.',
+    suggested_subtopics:
+      'The first thing you should learn about foods for clean energy and low inflammation is the different types of foods that are beneficial for these purposes. Some of the most important foods to focus on include fresh fruits and vegetables, whole grains, lean proteins, healthy fats, and plant-based sources of omega-3 fatty acids. Additionally, it is important to focus on foods that are low in sugar, processed foods, and unhealthy fats, as these can contribute to inflammation and reduce energy levels. Finally, it is important to understand the importance of hydration and how it can help to promote energy levels and reduce inflammation.',
+    nodes: [],
+    email: 'beton@bu.edu',
+  },
+  {
     id: '6514e9831d2a373a58fab3f4',
     topic: 'Personal Finance',
     lesson:
@@ -14,17 +34,6 @@ export const learnSomethingTree = [
           "If you are just starting to think about retirement planning, a great place to begin is by calculating your estimated retirement expenses. Start by thinking about what your goal is - such as having a comfortable lifestyle and still being able to save for other goals such as travel or hobbies. Then, estimate how much income you'll need each month and think about your retirement timeline - how long you plan to be retired and when you want to begin saving for retirement. Having an idea of these two factors can help you determine how much you should start saving now in order to meet your goals in the future.",
         suggested_subtopics:
           '1. Learn about different types of retirement accounts, such as 401(k)s, IRAs, and Roth IRAs, and the benefits and drawbacks of each.  2. Understand the rules and regulations governing retirement accounts and how to maximize your contributions.  3. Research different investment strategies for retirement accounts, such as target date funds, index funds, and actively managed funds.  4. Develop a plan for your retirement savings that takes into account your current income, expenses, and goals.  5. Consider how Social Security and other sources of retirement income will factor into your retirement plan.  6. Understand the different tax implications of retirement accounts and how to minimize your tax burden.  7. Research different types of annuities and how they can help you generate a steady stream of income in retirement.  8. Learn about long-term care insurance and how it can help protect your retirement savings.  9. Research different types of reverse mortgages and how they can help you access your home’s equity in retirement.  10. Understand the different options for withdrawing money from your retirement accounts and how to minimize the tax implications.',
-        nodes: [],
-        email: 'beton@bu.edu',
-        parentId: '6514e9831d2a373a58fab3f4',
-      },
-      {
-        id: '6514e9ea1d2a373a58fab3fd',
-        topic: 'Controlling Restaurant Expenses',
-        lesson:
-          "A great way for beginners to save money on restaurant expenses is to stick to a budget. You can figure out what your weekly or monthly budget should be and then make sure to stick to it. Make sure to research the menu options at your favorite restaurants to make sure you're getting the most for your money. You can also do things like look for happy hour specials, and plan meals ahead of time so you know what you'll order when you get to the restaurant.",
-        suggested_subtopics:
-          '1. Budgeting for Groceries  2. Managing Credit Card Debt  3. Saving for Retirement  4. Developing a Financial Plan  5. Understanding Insurance  6. Investing Wisely  7. Understanding Taxes  8. Creating an Emergency Fund  9. Avoiding Debt Traps  10. Setting Financial Goals',
         nodes: [],
         email: 'beton@bu.edu',
         parentId: '6514e9831d2a373a58fab3f4',

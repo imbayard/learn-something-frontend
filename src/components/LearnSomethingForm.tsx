@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Input, Select, Button, InputNumber } from 'antd'
-import { createNewLearnSomethingRoot } from '../api'
+import { createNewLearnSomethingRoot, fetchLearnSomethings } from '../api'
+import { LearnSomethingNode } from '../model'
 
 export interface LearnSomethingOpts {
   email: string
@@ -18,11 +19,23 @@ export type ExplanationTypeEnum =
   | 'practical example'
 export type LearningGoalEnum = 'casual learning' | 'test prep'
 
-const LearnSomethingForm: React.FC = () => {
+interface LearnSomethingFormProps {
+  email: string
+  setLearnSomethingRoots: React.Dispatch<
+    React.SetStateAction<LearnSomethingNode[]>
+  >
+}
+
+const LearnSomethingForm: React.FC<LearnSomethingFormProps> = ({
+  email,
+  setLearnSomethingRoots,
+}) => {
   const handleSubmit = async (values: LearnSomethingOpts) => {
     console.log('Form values:', values)
     try {
-      const res = await createNewLearnSomethingRoot(values)
+      const res = await createNewLearnSomethingRoot({ ...values, email })
+      const allRoots = await fetchLearnSomethings(email)
+      setLearnSomethingRoots(allRoots)
     } catch (err) {
       console.error(`Error creating learn something: ${err}`)
     }
