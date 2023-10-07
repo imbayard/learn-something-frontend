@@ -8,10 +8,8 @@ function getNodeFromPath(path: string): LearnSomethingNode | undefined {
   const idPath = path.split('+')
   let nodes: LearnSomethingNode[] | undefined = learnSomethingTree
   let node: LearnSomethingNode | undefined = undefined
-  console.log(learnSomethingTree)
   idPath.forEach((id) => {
     const next = nodes?.find((src) => src.id === id)
-    console.log(next)
     node = next
     nodes = next?.nodes
   })

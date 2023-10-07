@@ -1,52 +1,19 @@
 import React, { useMemo, useState } from 'react'
-import { Input, Tree } from 'antd'
+import { Button, Input, Modal, Tree } from 'antd'
 import type { DataNode } from 'antd/es/tree'
 import { learnSomethingTree } from '../samples/learn-something'
 import { convertToDataNode } from '../lib/learn-something-util'
 import './KnowledgeNodeTree.css'
 import { TreeNode } from '../model'
 import { useNavigate } from 'react-router-dom'
+import LearnSomethingForm from './LearnSomethingForm'
+import { generateList } from '../lib/tree-utils'
+import { LoaderButton } from './Loader'
 
 const { Search } = Input
 const defaultData: TreeNode[] = convertToDataNode(learnSomethingTree)
 
-const dataList: TreeNode[] = []
-const generateList = (
-  data: TreeNode[],
-  parentId?: React.Key,
-  fullPath?: string
-) => {
-  for (let i = 0; i < data.length; i++) {
-    const node = data[i]
-    const { key } = node
-    const path = generateNodePath(fullPath || key.toString(), node)
-    dataList.push({
-      key,
-      title: (node.title as string) || '',
-      parentId,
-      fullPath: path,
-      children: node.children,
-    })
-    if (node.children) {
-      generateList(node.children, key, path)
-    }
-  }
-}
-
-const generateNodePath = (fullpath: string, data: TreeNode) => {
-  if (data.parentId) {
-    return `${fullpath}+${data.key}`.toString()
-  } else {
-    return data.key.toString()
-  }
-}
-
-generateList(defaultData)
-
-const getParentKey = (key: React.Key): React.Key | undefined => {
-  const node = dataList.find((item) => item.key === key)
-  return node ? node.parentId : undefined
-}
+const dataList: TreeNode[] = generateList(defaultData)
 
 export const KnowledgeNodeTree: React.FC = () => {
   const navigate = useNavigate()
@@ -121,8 +88,30 @@ export const KnowledgeNodeTree: React.FC = () => {
     return loop(defaultData)
   }, [searchValue])
 
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleOk = () => {
+    setIsModalVisible(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
   return (
     <div className="knowledge-node-tree">
+      <LoaderButton
+        buttonText="Learn Something!"
+        isLoading={false}
+        message=""
+        handleSubmit={
+          !isModalVisible ? () => showModal() : () => handleCancel()
+        }
+      />
       <Search
         style={{ marginBottom: 8 }}
         placeholder="Search"
@@ -135,6 +124,19 @@ export const KnowledgeNodeTree: React.FC = () => {
         treeData={treeData}
         onSelect={onSelect}
       />
+      <Modal
+        title="Learn Something!"
+        open={isModalVisible}
+        closeIcon={false}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Cancel
+          </Button>,
+        ]}
+        destroyOnClose={true}
+      >
+        <LearnSomethingForm />
+      </Modal>
     </div>
   )
 }
