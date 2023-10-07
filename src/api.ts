@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { LearnSomethingNode } from './model/learn-something'
+import { LearnSomethingOpts } from './components/LearnSomethingForm'
 
 const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT || 'prod'
 
@@ -12,6 +13,8 @@ const withCredentials = ENVIRONMENT === 'prod' ? true : false
 
 const URLS = {
   fetchLearnSomethings: '/learn-something/fetch-all',
+  createNewRoot: '/learn-something/create-root',
+  deleteLearnSomething: '/learn-something/delete',
 }
 
 export async function fetchLearnSomethings(
@@ -20,6 +23,20 @@ export async function fetchLearnSomethings(
   const res = await makePost(URLS.fetchLearnSomethings, { email })
   console.log(JSON.stringify(res.data.learnSomethingTree))
   return (res.data.learnSomethingTree as LearnSomethingNode[]) || []
+}
+
+export async function createNewLearnSomethingRoot(opts: LearnSomethingOpts) {
+  const res = await makePost(URLS.createNewRoot, opts)
+  console.log(JSON.stringify(res.data))
+  return res.data as LearnSomethingNode
+}
+
+export async function deleteLearnSomething(
+  id: string,
+  deleteChildren: boolean
+) {
+  const res = await makePost(URLS.deleteLearnSomething, { id, deleteChildren })
+  console.log(`Delete was ${res.data ? 'Successful' : 'Unsuccessful'}`)
 }
 
 async function deleteRequest(url: string, body: any) {

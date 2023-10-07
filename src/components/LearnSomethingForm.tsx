@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Select, Button, InputNumber } from 'antd'
+import { createNewLearnSomethingRoot } from '../api'
 
 export interface LearnSomethingOpts {
   email: string
@@ -18,9 +19,13 @@ export type ExplanationTypeEnum =
 export type LearningGoalEnum = 'casual learning' | 'test prep'
 
 const LearnSomethingForm: React.FC = () => {
-  const handleSubmit = (values: LearnSomethingOpts) => {
+  const handleSubmit = async (values: LearnSomethingOpts) => {
     console.log('Form values:', values)
-    // Handle form submission logic here
+    try {
+      const res = await createNewLearnSomethingRoot(values)
+    } catch (err) {
+      console.error(`Error creating learn something: ${err}`)
+    }
   }
 
   return (
