@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Select, Button, InputNumber } from 'antd'
 import {
   createNewLearnSomethingChild,
@@ -39,8 +39,10 @@ const LearnSomethingForm: React.FC<LearnSomethingFormProps> = ({
   parentId,
 }) => {
   const navigate = useNavigate()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const handleSubmit = async (values: LearnSomethingOpts) => {
     console.log('Form values:', values)
+    setIsSubmitting(true)
     try {
       let res: LearnSomethingNode = nodeNotFound
       if (parentId) {
@@ -50,6 +52,7 @@ const LearnSomethingForm: React.FC<LearnSomethingFormProps> = ({
       }
       const allRoots = await fetchLearnSomethings(email)
       setLearnSomethingRoots(allRoots)
+      setIsSubmitting(false)
       navigate(`/${res.id}`)
     } catch (err) {
       console.error(`Error creating learn something: ${err}`)
@@ -109,7 +112,7 @@ const LearnSomethingForm: React.FC<LearnSomethingFormProps> = ({
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isSubmitting}>
           Submit
         </Button>
       </Form.Item>
