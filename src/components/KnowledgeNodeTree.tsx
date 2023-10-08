@@ -4,7 +4,7 @@ import type { DataNode } from 'antd/es/tree'
 import './KnowledgeNodeTree.css'
 import { LearnSomethingNode, TreeNode } from '../model'
 import { useNavigate } from 'react-router-dom'
-import LearnSomethingForm from './LearnSomethingForm'
+import LearnSomethingForm from '../learn-something/LearnSomethingForm'
 import { LoaderButton } from './Loader'
 
 const { Search } = Input

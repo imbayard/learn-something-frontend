@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { nodeNotFound } from '../samples/learn-something'
 import { useNavigate } from 'react-router-dom'
 import './LearnSomethingNode.css'
-import { LoaderButton } from './Loader'
+import { LoaderButton } from '../components/Loader'
 import { Checkbox, Modal } from 'antd'
 import { deleteLearnSomething, fetchLearnSomethingById } from '../api'
 

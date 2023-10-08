@@ -1,17 +1,15 @@
 import React, { useState, createContext, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import SignIn from './SignIn'
 import { container } from './lib/container'
 import Header from './components/Header'
 import { LearnSomething } from './learn-something/LearnSomething'
 
 import './App.css'
-import { LearnSomethingNodeComponent } from './components/LearnSomethingNode'
+import { LearnSomethingNodeComponent } from './learn-something/LearnSomethingNode'
+import { LearnSomethingNode } from './model'
+import { learnSomethingTree } from './samples/learn-something'
+import { fetchLearnSomethings } from './api'
 
 export const UserContext = createContext({
   userId: '',
@@ -63,6 +61,7 @@ export default function App() {
 
   function loadUserInfoFromLocalStorage() {
     const savedUserInfo = localStorage.getItem('userInfo')
+
     if (savedUserInfo) {
       const userInfo = JSON.parse(savedUserInfo)
       setGlobalUserInfo({ ...userInfo, handleLogout })

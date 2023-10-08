@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { LearnSomethingNode } from './model/learn-something'
-import { LearnSomethingOpts } from './components/LearnSomethingForm'
+import { LearnSomethingOpts } from './learn-something/LearnSomethingForm'
 
 const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT || 'prod'
 
