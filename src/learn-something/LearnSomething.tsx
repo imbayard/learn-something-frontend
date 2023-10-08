@@ -4,6 +4,9 @@ import { fetchLearnSomethings } from '../api'
 import { container } from '../lib/container'
 import { learnSomethingTree } from '../samples/learn-something'
 import { KnowledgeNodeTree } from '../components/KnowledgeNodeTree'
+import { convertToDataNode } from '../lib/learn-something-util'
+import { generateList } from '../lib/tree-utils'
+import { TreeNode } from '../model'
 
 type LearnSomethingProps = {
   email: string
@@ -13,12 +16,17 @@ export const LearnSomething: React.FC<LearnSomethingProps> = ({ email }) => {
   const [learnSomethingRoots, setLearnSomethingRoots] = useState(
     [] as LearnSomethingNode[]
   )
+  const [defaultData, setDefaultData] = useState([] as TreeNode[])
+  const [dataList, setDataList] = useState([] as TreeNode[])
   useEffect(() => {
     async function loadPage() {
       const learnSomethingRoots = container.noapi
         ? learnSomethingTree
         : await fetchLearnSomethings(email)
-      setLearnSomethingRoots(learnSomethingRoots)
+      const defData = convertToDataNode(learnSomethingRoots)
+      const datList = generateList(defaultData)
+      setDefaultData(defData)
+      setDataList(datList)
     }
     loadPage()
   }, [])
@@ -26,7 +34,8 @@ export const LearnSomething: React.FC<LearnSomethingProps> = ({ email }) => {
     <KnowledgeNodeTree
       email={email}
       setLearnSomethingRoots={setLearnSomethingRoots}
-      learnSomethingRoots={learnSomethingRoots}
+      defaultData={defaultData}
+      dataList={dataList}
     />
   )
 }

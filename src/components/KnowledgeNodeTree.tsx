@@ -1,45 +1,33 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button, Input, Modal, Tree } from 'antd'
 import type { DataNode } from 'antd/es/tree'
-import { learnSomethingTree } from '../samples/learn-something'
-import { convertToDataNode } from '../lib/learn-something-util'
 import './KnowledgeNodeTree.css'
 import { LearnSomethingNode, TreeNode } from '../model'
 import { useNavigate } from 'react-router-dom'
 import LearnSomethingForm from './LearnSomethingForm'
-import { generateList } from '../lib/tree-utils'
 import { LoaderButton } from './Loader'
 
 const { Search } = Input
-// const defaultData: TreeNode[] = convertToDataNode(learnSomethingTree)
-
-// const dataList: TreeNode[] = generateList(defaultData)
 
 interface KnowledgeNodeTreeProps {
   email: string
   setLearnSomethingRoots: React.Dispatch<
     React.SetStateAction<LearnSomethingNode[]>
   >
-  learnSomethingRoots: LearnSomethingNode[]
+  defaultData: TreeNode[]
+  dataList: TreeNode[]
 }
 
 export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
   email,
   setLearnSomethingRoots,
-  learnSomethingRoots,
+  defaultData,
+  dataList,
 }) => {
   const navigate = useNavigate()
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
   const [searchValue, setSearchValue] = useState('')
   const [autoExpandParent, setAutoExpandParent] = useState(true)
-  const defaultData: TreeNode[] = useMemo(
-    () => convertToDataNode(learnSomethingTree),
-    []
-  )
-  const dataList: TreeNode[] = useMemo(
-    () => generateList(defaultData),
-    [defaultData]
-  )
   const onSelect = (selectedKeys: React.Key[], info: any) => {
     const key = selectedKeys[0]
     const selectedNode = dataList.find((item) => item.key === key)
