@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button, Input, Modal, Tree } from 'antd'
 import type { DataNode } from 'antd/es/tree'
 import './KnowledgeNodeTree.css'
@@ -6,7 +6,6 @@ import { LearnSomethingNode, TreeNode } from '../model'
 import { useNavigate } from 'react-router-dom'
 import LearnSomethingForm from './LearnSomethingForm'
 import { LoaderButton } from './Loader'
-import { debounce } from '../lib/util'
 
 const { Search } = Input
 
@@ -29,12 +28,12 @@ export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
   const [searchValue, setSearchValue] = useState('')
   const [autoExpandParent, setAutoExpandParent] = useState(true)
-  console.log(dataList)
+
   const onSelect = (selectedKeys: React.Key[], info: any) => {
     const key = selectedKeys[0]
     const selectedNode = dataList.find((item) => item.key === key)
-    if (selectedNode && selectedNode.fullPath) {
-      navigate(`/${selectedNode.fullPath}`)
+    if (selectedNode && selectedNode.key) {
+      navigate(`/${selectedNode.key}`)
     }
   }
 

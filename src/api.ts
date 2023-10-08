@@ -15,6 +15,7 @@ const URLS = {
   fetchLearnSomethings: '/learn-something/fetch-all',
   createNewRoot: '/learn-something/create-root',
   deleteLearnSomething: '/learn-something/delete',
+  fetchLearnSomethingById: '/learn-something/fetch-by-id',
 }
 
 export async function fetchLearnSomethings(
@@ -37,6 +38,16 @@ export async function deleteLearnSomething(
 ) {
   const res = await makePost(URLS.deleteLearnSomething, { id, deleteChildren })
   console.log(`Delete was ${res.data ? 'Successful' : 'Unsuccessful'}`)
+}
+
+export async function fetchLearnSomethingById(id: string, email: string) {
+  const res = await makePost(URLS.fetchLearnSomethingById, { id, email })
+  if (res.data?.id && res.data.id === id) {
+    return res.data as LearnSomethingNode
+  } else {
+    console.log('Fetch unsuccessful...')
+    return undefined
+  }
 }
 
 async function deleteRequest(url: string, body: any) {

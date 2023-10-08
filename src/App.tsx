@@ -95,7 +95,12 @@ export default function App() {
             )}
             <Routes>
               {isAuthenticated ? (
-                <Route path="/:id" element={<LearnSomethingNodeComponent />} />
+                <Route
+                  path="/:id"
+                  element={
+                    <LearnSomethingNodeComponent email={userInfo.email} />
+                  }
+                />
               ) : (
                 <>
                   <Route

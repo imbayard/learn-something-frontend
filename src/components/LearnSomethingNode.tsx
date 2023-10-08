@@ -1,39 +1,46 @@
 import { useParams } from 'react-router-dom'
-import React, { useState } from 'react'
-import { LearnSomethingNode } from '../model'
-import { learnSomethingTree } from '../samples/learn-something'
+import React, { useState, useEffect } from 'react'
+import { nodeNotFound } from '../samples/learn-something'
+import { useNavigate } from 'react-router-dom'
 import './LearnSomethingNode.css'
 import { LoaderButton } from './Loader'
 import { Checkbox, Modal } from 'antd'
-import { deleteLearnSomething } from '../api'
+import { deleteLearnSomething, fetchLearnSomethingById } from '../api'
 
-function getNodeFromPath(path: string): LearnSomethingNode | undefined {
-  const idPath = path.split('+')
-  let nodes: LearnSomethingNode[] | undefined = learnSomethingTree
-  let node: LearnSomethingNode | undefined = undefined
-  idPath.forEach((id) => {
-    const next = nodes?.find((src) => src.id === id)
-    node = next
-    nodes = next?.nodes
-  })
-  return node
+interface LearnSomethingNodeComponentProps {
+  email: string
 }
 
-export function LearnSomethingNodeComponent() {
+export function LearnSomethingNodeComponent({
+  email,
+}: LearnSomethingNodeComponentProps) {
+  const navigate = useNavigate()
   const { id } = useParams()
-  const node = getNodeFromPath(id || '')
   const [isDeleting, setIsDeleting] = useState(false)
-  const [isModalVisible, setIsModalVisible] = useState(false) // State for modal visibility
-  const [deleteChildren, setDeleteChildren] = useState(false) // State for checkbox value
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [doesWantToDeleteChildren, setDeleteChildren] = useState(false)
+  const [node, setNode] = useState(nodeNotFound)
+
+  useEffect(() => {
+    async function loadPage() {
+      const fetched = await fetchLearnSomethingById(id || '', email)
+      if (fetched) {
+        setNode(fetched)
+      } else {
+        setNode(nodeNotFound)
+      }
+    }
+    loadPage()
+  }, [id])
 
   const handleDelete = async () => {
     setIsModalVisible(false)
     setIsDeleting(true)
-    // Call your async delete function here.
 
-    await deleteLearnSomething(node?.id || '', deleteChildren)
+    await deleteLearnSomething(node?.id || '', doesWantToDeleteChildren)
     // You can use the deleteChildren state to determine if children should be deleted.
     setIsDeleting(false)
+    navigate('/')
   }
   if (node) {
     return (
@@ -72,7 +79,7 @@ export function LearnSomethingNodeComponent() {
         >
           <p>Are you sure you want to delete this node?</p>
           <Checkbox
-            checked={deleteChildren}
+            checked={doesWantToDeleteChildren}
             onChange={(e) => setDeleteChildren(e.target.checked)}
           >
             Delete its children as well?

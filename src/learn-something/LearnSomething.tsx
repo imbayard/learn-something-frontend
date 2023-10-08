@@ -27,7 +27,6 @@ export const LearnSomething: React.FC<LearnSomethingProps> = ({ email }) => {
       const datList = generateList(defData)
       setDefaultData(defData)
       setDataList(datList)
-      console.log(datList)
     }
     loadPage()
   }, [])
