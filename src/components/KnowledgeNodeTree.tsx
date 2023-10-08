@@ -1,50 +1,40 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button, Input, Modal, Tree } from 'antd'
 import type { DataNode } from 'antd/es/tree'
-import { learnSomethingTree } from '../samples/learn-something'
-import { convertToDataNode } from '../lib/learn-something-util'
 import './KnowledgeNodeTree.css'
 import { LearnSomethingNode, TreeNode } from '../model'
 import { useNavigate } from 'react-router-dom'
-import LearnSomethingForm from './LearnSomethingForm'
-import { generateList } from '../lib/tree-utils'
+import LearnSomethingForm from '../learn-something/LearnSomethingForm'
 import { LoaderButton } from './Loader'
+import { LearnSomethingNewModal } from '../learn-something/LearnSomethingNewModal'
 
 const { Search } = Input
-// const defaultData: TreeNode[] = convertToDataNode(learnSomethingTree)
-
-// const dataList: TreeNode[] = generateList(defaultData)
 
 interface KnowledgeNodeTreeProps {
   email: string
   setLearnSomethingRoots: React.Dispatch<
     React.SetStateAction<LearnSomethingNode[]>
   >
-  learnSomethingRoots: LearnSomethingNode[]
+  defaultData: TreeNode[]
+  dataList: TreeNode[]
 }
 
 export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
   email,
   setLearnSomethingRoots,
-  learnSomethingRoots,
+  defaultData,
+  dataList,
 }) => {
   const navigate = useNavigate()
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
   const [searchValue, setSearchValue] = useState('')
   const [autoExpandParent, setAutoExpandParent] = useState(true)
-  const defaultData: TreeNode[] = useMemo(
-    () => convertToDataNode(learnSomethingTree),
-    []
-  )
-  const dataList: TreeNode[] = useMemo(
-    () => generateList(defaultData),
-    [defaultData]
-  )
+
   const onSelect = (selectedKeys: React.Key[], info: any) => {
     const key = selectedKeys[0]
     const selectedNode = dataList.find((item) => item.key === key)
-    if (selectedNode && selectedNode.fullPath) {
-      navigate(`/${selectedNode.fullPath}`)
+    if (selectedNode && selectedNode.key) {
+      navigate(`/${selectedNode.key}`)
     }
   }
 
@@ -105,7 +95,7 @@ export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
       })
 
     return loop(defaultData)
-  }, [searchValue])
+  }, [searchValue, defaultData])
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
@@ -113,15 +103,11 @@ export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
     setIsModalVisible(true)
   }
 
-  const handleOk = () => {
-    setIsModalVisible(false)
-  }
-
   const handleCancel = () => {
     setIsModalVisible(false)
   }
 
-  return (
+  return dataList && dataList.length > 0 ? (
     <div className="knowledge-node-tree">
       <LoaderButton
         buttonText="Learn Something!"
@@ -143,22 +129,14 @@ export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
         treeData={treeData}
         onSelect={onSelect}
       />
-      <Modal
-        title="Learn Something!"
-        open={isModalVisible}
-        closeIcon={false}
-        footer={[
-          <Button key="cancel" onClick={handleCancel}>
-            Cancel
-          </Button>,
-        ]}
-        destroyOnClose={true}
-      >
-        <LearnSomethingForm
-          email={email}
-          setLearnSomethingRoots={setLearnSomethingRoots}
-        />
-      </Modal>
+      <LearnSomethingNewModal
+        isModalVisible={isModalVisible}
+        setLearnSomethingRoots={setLearnSomethingRoots}
+        handleCancel={handleCancel}
+        email={email}
+      />
     </div>
+  ) : (
+    <div>Loading...</div>
   )
 }

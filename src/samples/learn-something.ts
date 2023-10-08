@@ -1,3 +1,5 @@
+import { LearnSomethingNode } from '../model'
+
 export const learnSomethingTree = [
   {
     id: '6521bf6a3d2c07292b7fcd74',
@@ -120,3 +122,13 @@ export const learnSomethingTree = [
     email: 'beton@bu.edu',
   },
 ]
+
+export const nodeNotFound: LearnSomethingNode = {
+  topic: 'Ruh Roh',
+  lesson: "This wasn't supposed to happen.",
+  id: '',
+  suggested_subtopics:
+    'Could you let Bayard know that something went wrong? Try to remember what you were doing that led to this.',
+  email: 'beton@bu.edu',
+  nodes: [],
+}

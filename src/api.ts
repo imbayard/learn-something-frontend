@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { LearnSomethingNode } from './model/learn-something'
-import { LearnSomethingOpts } from './components/LearnSomethingForm'
+import { LearnSomethingOpts } from './learn-something/LearnSomethingForm'
 
 const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT || 'prod'
 
@@ -15,6 +15,8 @@ const URLS = {
   fetchLearnSomethings: '/learn-something/fetch-all',
   createNewRoot: '/learn-something/create-root',
   deleteLearnSomething: '/learn-something/delete',
+  fetchLearnSomethingById: '/learn-something/fetch-by-id',
+  createNewLearnSomethingChild: '/learn-something/create-child',
 }
 
 export async function fetchLearnSomethings(
@@ -31,12 +33,33 @@ export async function createNewLearnSomethingRoot(opts: LearnSomethingOpts) {
   return res.data as LearnSomethingNode
 }
 
+export async function createNewLearnSomethingChild(
+  opts: LearnSomethingOpts,
+  parentId: string
+) {
+  const res = await makePost(URLS.createNewLearnSomethingChild, {
+    opts,
+    parentId,
+  })
+  return res.data as LearnSomethingNode
+}
+
 export async function deleteLearnSomething(
   id: string,
   deleteChildren: boolean
 ) {
   const res = await makePost(URLS.deleteLearnSomething, { id, deleteChildren })
   console.log(`Delete was ${res.data ? 'Successful' : 'Unsuccessful'}`)
+}
+
+export async function fetchLearnSomethingById(id: string, email: string) {
+  const res = await makePost(URLS.fetchLearnSomethingById, { id, email })
+  if (res.data?.id && res.data.id === id) {
+    return res.data as LearnSomethingNode
+  } else {
+    console.log('Fetch unsuccessful...')
+    return undefined
+  }
 }
 
 async function deleteRequest(url: string, body: any) {
