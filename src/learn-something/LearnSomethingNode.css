@@ -42,7 +42,7 @@
 
 .learn-something-node-header {
   display: grid;
-  grid-template-columns: 70% 15% 15%;
+  grid-template-columns: 70% 10% 10% 10%;
 }
 
 .learn-something-node-header button {

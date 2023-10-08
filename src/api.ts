@@ -16,6 +16,7 @@ const URLS = {
   createNewRoot: '/learn-something/create-root',
   deleteLearnSomething: '/learn-something/delete',
   fetchLearnSomethingById: '/learn-something/fetch-by-id',
+  createNewLearnSomethingChild: '/learn-something/create-child',
 }
 
 export async function fetchLearnSomethings(
@@ -29,6 +30,17 @@ export async function fetchLearnSomethings(
 export async function createNewLearnSomethingRoot(opts: LearnSomethingOpts) {
   const res = await makePost(URLS.createNewRoot, opts)
   console.log(JSON.stringify(res.data))
+  return res.data as LearnSomethingNode
+}
+
+export async function createNewLearnSomethingChild(
+  opts: LearnSomethingOpts,
+  parentId: string
+) {
+  const res = await makePost(URLS.createNewLearnSomethingChild, {
+    opts,
+    parentId,
+  })
   return res.data as LearnSomethingNode
 }
 

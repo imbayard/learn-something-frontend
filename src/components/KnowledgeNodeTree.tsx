@@ -6,6 +6,7 @@ import { LearnSomethingNode, TreeNode } from '../model'
 import { useNavigate } from 'react-router-dom'
 import LearnSomethingForm from '../learn-something/LearnSomethingForm'
 import { LoaderButton } from './Loader'
+import { LearnSomethingNewModal } from '../learn-something/LearnSomethingNewModal'
 
 const { Search } = Input
 
@@ -128,22 +129,12 @@ export const KnowledgeNodeTree: React.FC<KnowledgeNodeTreeProps> = ({
         treeData={treeData}
         onSelect={onSelect}
       />
-      <Modal
-        title="Learn Something!"
-        open={isModalVisible}
-        closeIcon={false}
-        footer={[
-          <Button key="cancel" onClick={handleCancel}>
-            Cancel
-          </Button>,
-        ]}
-        destroyOnClose={true}
-      >
-        <LearnSomethingForm
-          email={email}
-          setLearnSomethingRoots={setLearnSomethingRoots}
-        />
-      </Modal>
+      <LearnSomethingNewModal
+        isModalVisible={isModalVisible}
+        setLearnSomethingRoots={setLearnSomethingRoots}
+        handleCancel={handleCancel}
+        email={email}
+      />
     </div>
   ) : (
     <div>Loading...</div>

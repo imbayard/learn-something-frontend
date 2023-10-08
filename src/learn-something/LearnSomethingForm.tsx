@@ -1,7 +1,13 @@
 import React from 'react'
 import { Form, Input, Select, Button, InputNumber } from 'antd'
-import { createNewLearnSomethingRoot, fetchLearnSomethings } from '../api'
+import {
+  createNewLearnSomethingChild,
+  createNewLearnSomethingRoot,
+  fetchLearnSomethings,
+} from '../api'
 import { LearnSomethingNode } from '../model'
+import { useNavigate } from 'react-router-dom'
+import { nodeNotFound } from '../samples/learn-something'
 
 export interface LearnSomethingOpts {
   email: string
@@ -24,18 +30,27 @@ interface LearnSomethingFormProps {
   setLearnSomethingRoots: React.Dispatch<
     React.SetStateAction<LearnSomethingNode[]>
   >
+  parentId?: string
 }
 
 const LearnSomethingForm: React.FC<LearnSomethingFormProps> = ({
   email,
   setLearnSomethingRoots,
+  parentId,
 }) => {
+  const navigate = useNavigate()
   const handleSubmit = async (values: LearnSomethingOpts) => {
     console.log('Form values:', values)
     try {
-      const res = await createNewLearnSomethingRoot({ ...values, email })
+      let res: LearnSomethingNode = nodeNotFound
+      if (parentId) {
+        res = await createNewLearnSomethingChild({ ...values, email }, parentId)
+      } else {
+        res = await createNewLearnSomethingRoot({ ...values, email })
+      }
       const allRoots = await fetchLearnSomethings(email)
       setLearnSomethingRoots(allRoots)
+      navigate(`/${res.id}`)
     } catch (err) {
       console.error(`Error creating learn something: ${err}`)
     }

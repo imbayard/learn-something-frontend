@@ -11,6 +11,7 @@ import {
   fetchLearnSomethings,
 } from '../api'
 import { LearnSomethingNode } from '../model'
+import { LearnSomethingNewModal } from './LearnSomethingNewModal'
 
 interface LearnSomethingNodeComponentProps {
   email: string
@@ -25,8 +26,13 @@ export function LearnSomethingNodeComponent({
   const { id } = useParams()
   const [isDeleting, setIsDeleting] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isCreatingChild, setIsCreatingChild] = useState(false)
   const [doesWantToDeleteChildren, setDeleteChildren] = useState(false)
   const [node, setNode] = useState(nodeNotFound)
+
+  const handleCancel = () => {
+    setIsCreatingChild(false)
+  }
 
   useEffect(() => {
     async function loadPage() {
@@ -36,6 +42,7 @@ export function LearnSomethingNodeComponent({
       } else {
         setNode(nodeNotFound)
       }
+      setIsCreatingChild(false)
     }
     loadPage()
   }, [id])
@@ -55,6 +62,12 @@ export function LearnSomethingNodeComponent({
       <div className="learn-something-node">
         <div className="learn-something-node-header">
           <div className="learn-something-topic">{node.topic}</div>
+          <LoaderButton
+            isLoading={false}
+            buttonText="Dig Deeper"
+            handleSubmit={() => setIsCreatingChild(true)}
+            message="Dig Deeper"
+          />
           <LoaderButton
             isLoading={false}
             buttonText="Edit"
@@ -95,6 +108,13 @@ export function LearnSomethingNodeComponent({
             Delete its children as well?
           </Checkbox>
         </Modal>
+        <LearnSomethingNewModal
+          isModalVisible={isCreatingChild}
+          handleCancel={handleCancel}
+          setLearnSomethingRoots={setTreeData}
+          parentId={node.id}
+          email={email}
+        />
       </div>
     )
   } else {
