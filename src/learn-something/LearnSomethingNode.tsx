@@ -5,14 +5,21 @@ import { useNavigate } from 'react-router-dom'
 import './LearnSomethingNode.css'
 import { LoaderButton } from '../components/Loader'
 import { Checkbox, Modal } from 'antd'
-import { deleteLearnSomething, fetchLearnSomethingById } from '../api'
+import {
+  deleteLearnSomething,
+  fetchLearnSomethingById,
+  fetchLearnSomethings,
+} from '../api'
+import { LearnSomethingNode } from '../model'
 
 interface LearnSomethingNodeComponentProps {
   email: string
+  setTreeData: React.Dispatch<React.SetStateAction<LearnSomethingNode[]>>
 }
 
 export function LearnSomethingNodeComponent({
   email,
+  setTreeData,
 }: LearnSomethingNodeComponentProps) {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -40,6 +47,7 @@ export function LearnSomethingNodeComponent({
     await deleteLearnSomething(node?.id || '', doesWantToDeleteChildren)
     // You can use the deleteChildren state to determine if children should be deleted.
     setIsDeleting(false)
+    setTreeData(await fetchLearnSomethings(email))
     navigate('/')
   }
   if (node) {
@@ -61,8 +69,10 @@ export function LearnSomethingNodeComponent({
           />
         </div>
         <div className="learn-something-lesson">
-          {node.lesson.split('.').map((sentence) => (
-            <span className="learn-something-lesson-sentence">{sentence}.</span>
+          {node.lesson.split('.').map((sentence, i) => (
+            <span key={i} className="learn-something-lesson-sentence">
+              {sentence}.
+            </span>
           ))}
         </div>
         <div className="learn-something-subtopics">

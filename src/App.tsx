@@ -33,6 +33,8 @@ export default function App() {
     handleLogout,
   })
 
+  const [treeData, setTreeData] = useState([] as LearnSomethingNode[])
+
   async function handleLogout() {
     await container.auth.signOut()
     setGlobalUserInfo({ userId: '', email: '', name: '', handleLogout })
@@ -88,7 +90,11 @@ export default function App() {
           <Header />
           <div className="app-body">
             {isAuthenticated ? (
-              <LearnSomething email={userInfo.email} />
+              <LearnSomething
+                email={userInfo.email}
+                treeData={treeData}
+                setTreeData={setTreeData}
+              />
             ) : (
               <></>
             )}
@@ -97,7 +103,10 @@ export default function App() {
                 <Route
                   path="/:id"
                   element={
-                    <LearnSomethingNodeComponent email={userInfo.email} />
+                    <LearnSomethingNodeComponent
+                      email={userInfo.email}
+                      setTreeData={setTreeData}
+                    />
                   }
                 />
               ) : (
